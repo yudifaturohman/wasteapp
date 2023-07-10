@@ -16,4 +16,9 @@ class PageAdminController extends Controller
     {
         return view('admin.trash-location');
     }
+
+    public function report_full_trash()
+    {
+        return view('admin.report');
+    }
 }

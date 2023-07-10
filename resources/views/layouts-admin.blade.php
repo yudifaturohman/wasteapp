@@ -55,7 +55,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ URL('/') }}">
+              <a class="nav-link" href="{{ route('report') }}">
                 <span class="menu-title">Report Full Trash</span>
                 <i class="mdi mdi-led-on menu-icon"></i>
               </a>
