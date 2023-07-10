@@ -49,6 +49,18 @@
               </a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="{{ route('location') }}">
+                <span class="menu-title">Trash Location</span>
+                <i class="mdi mdi-map-marker menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ URL('/') }}">
+                <span class="menu-title">Report Full Trash</span>
+                <i class="mdi mdi-led-on menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="">
                 <span class="menu-title">Logout</span>
                 <i class="mdi mdi-logout menu-icon"></i>

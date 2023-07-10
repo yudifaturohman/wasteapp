@@ -11,4 +11,9 @@ class PageAdminController extends Controller
     {
         return view('admin.dashboard');
     }
+
+    public function trash_location()
+    {
+        return view('admin.trash-location');
+    }
 }
