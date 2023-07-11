@@ -9,12 +9,13 @@ use Livewire\WithPagination;
 class TrashLocation extends Component
 {
     use WithPagination;
-    public $selected_id, $location_name, $lat, $long;
+    public $selected_id, $location_name, $lat, $long, $search_location_name;
     protected $paginationTheme = 'bootstrap';
 
     public function render()
     {
         $getLocation = ModelTrashLocation::orderBy('location_name' , 'ASC')
+        ->where('location_name', 'like', '%'.$this->search_location_name.'%')
         ->paginate(10);
 
         return view('livewire.admin.trash-location', compact('getLocation'));

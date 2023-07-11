@@ -24,6 +24,11 @@
                             <div id="visit-sale-chart-legend"
                                 class="rounded-legend legend-horizontal legend-top-right float-right"></div>
                         </div>
+                        <div class="row mb-3">
+                            <div class="col-lg-12 col-sm-12">
+                                <input wire:model='search_location_name' type="text" class="form-control" placeholder="Location Name">
+                            </div>
+                        </div>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
