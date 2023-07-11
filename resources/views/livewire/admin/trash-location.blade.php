@@ -15,12 +15,12 @@
                     Location</button>
             </h3>
         </div>
-        <div wire:ignore class="row">
+        <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <div class="clearfix">
-                            <h4 class="card-title float-left">@yield('title')</h4>
+                            <h4 class="card-title float-left" wire:ignore>@yield('title')</h4>
                             <div id="visit-sale-chart-legend"
                                 class="rounded-legend legend-horizontal legend-top-right float-right"></div>
                         </div>
@@ -36,24 +36,30 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @forelse($getLocation as $item)
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{ ($getLocation->currentpage()-1) * $getLocation->perpage() + $loop->index + 1 }}.</td>
+                                        <td>{{ $item->location_name }}</td>
+                                        <td>{{ $item->lat }}</td>
+                                        <td>{{ $item->long }}</td>
                                         <td>
-                                            <button type="button" data-bs-toggle="modal" data-bs-target="#edit"
+                                            <button wire:click="edit({{ $item->id }})" type="button" data-bs-toggle="modal" data-bs-target="#edit"
                                                 class="btn btn-info btn-sm">
                                                 Edit
                                             </button>
-                                            <button class="btn btn-danger btn-sm">
+                                            <button wire:click="delete({{ $item->id }})" class="btn btn-danger btn-sm">
                                                 Delete
                                             </button>
                                         </td>
                                     </tr>
+                                    @empty
+                                    <tr>
+                                        <td colspan='5' class="text-center">Data Not Avalailable</td>
+                                    </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
-
+                            {{ $getLocation->links() }}
                         </div>
                     </div>
                 </div>

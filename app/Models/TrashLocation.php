@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class TrashLocation extends Model
 {
     use HasFactory;
-
+    
+    protected $table = "locations";
     protected $fillable = ['location_name', 'lat', 'long'];
 }
