@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}" />
-    <!-- @livewireStyles -->
+    @livewireStyles
   </head>
   <body>
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -80,7 +80,7 @@
         </div>
       </div>
     </div>
-    <!-- @livewireScripts -->
+    @livewireScripts
     <script src="{{ asset('assets/vendors/js/vendor.bundle.base.js') }}"></script>
     
     @stack('scripts')
