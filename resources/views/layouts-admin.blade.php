@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}" />
+    @stack('css')
     @livewireStyles
   </head>
   <body>
