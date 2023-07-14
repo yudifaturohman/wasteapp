@@ -71,32 +71,40 @@ Dashboard
         let map, markers = [];
         /* ----------------------------- Initialize Map ----------------------------- */
         function initMap() {
-            map = L.map('map', {
-                center: {
-                    lat: -5.9782833,
-                    lng: 105.9224455,
-                },
-                zoom: 12
-            });
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                
+                const latPosition = position.coords.latitude;
+                const lngPosition = position.coords.longitude;
 
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap'
-            }).addTo(map);
+                map = L.map('map', {
+                    center: {
+                        lat: latPosition,
+                        lng: lngPosition,
+                    },
+                    zoom: 12
+                });
 
-            map.on('click', mapClicked);
-            initMarkers();
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '© OpenStreetMap'
+                    }).addTo(map);
+
+                    initMarkers();
+
+                }
+            );
         }
         initMap();
 
         /* --------------------------- Initialize Markers --------------------------- */
         function initMarkers() {
-            const initialMarkers = <?php echo json_encode($initialMarkers); ?>;
+            const initialMarkers = <?php echo json_encode($getJsonLocations); ?>;
 
             for (let index = 0; index < initialMarkers.length; index++) {
 
                 const data = initialMarkers[index];
                 const marker = generateMarker(data, index);
-                marker.addTo(map).bindPopup(`<b>${data.position.lat},  ${data.position.lng}</b>`);
+                marker.addTo(map).bindPopup(`<b>Location Name: </b>${data.position.location_name} <br/> <a href='#' class='btn btn-danger btn-sm'>Report the trash can is full</a>`);
                 map.panTo(data.position);
                 markers.push(marker)
             }
@@ -110,22 +118,9 @@ Dashboard
                 .on('dragend', (event) => markerDragEnd(event, index));
         }
 
-        /* ------------------------- Handle Map Click Event ------------------------- */
-        function mapClicked($event) {
-            console.log(map);
-            console.log($event.latlng.lat, $event.latlng.lng);
-        }
-
         /* ------------------------ Handle Marker Click Event ----------------------- */
         function markerClicked($event, index) {
-            console.log(map);
-            console.log($event.latlng.lat, $event.latlng.lng);
-        }
-
-        /* ----------------------- Handle Marker DragEnd Event ---------------------- */
-        function markerDragEnd($event, index) {
-            console.log(map);
-            console.log($event.target.getLatLng());
+            
         }
     </script>
 @endpush

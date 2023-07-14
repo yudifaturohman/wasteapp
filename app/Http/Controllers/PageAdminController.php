@@ -18,17 +18,19 @@ class PageAdminController extends Controller
             'countReport' => $countReport
         );
 
-        $initialMarkers = [
-            [
-                'position' => [
-                    'lat' => -6.01242780129032,
-                    'lng' => 106.03436873617736
-                ],
-                'draggable' => true
-            ]
-        ];
+        $locations = TrashLocation::all();
 
-        return view('admin.dashboard', compact('initialMarkers'))
+        $getJsonLocations = $locations->map( function($locations){
+            return [
+                'position' => [
+                    'lat' => (float)$locations->lat,
+                    'lng' => (float)$locations->long,
+                    'location_name' => $locations->location_name
+                ],
+            ];
+        });
+
+        return view('admin.dashboard', compact('getJsonLocations'))
         ->with($arrayCount);
     }
 
