@@ -3,12 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\TrashLocation;
 use App\Models\Report;
 
 class PageAdminController extends Controller
 {
+    public function login()
+    {
+        return view('admin.login');    
+    }
+
+    public function postLogin(Request $request)
+    {
+        $this->validate($request, [
+            'username' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        if(Auth::attempt(['email' => $request->username, 'password' => $request->password])) {
+            return redirect()->route('dashboard');
+        }else {
+            return redirect()
+            ->back()
+            ->withErrors(["Wrong Access Code!"]);
+        }
+    }
+
+    public function postLogout()
+    {
+        Auth::logout();
+        session()->flush();
+
+        return redirect()->route('login');
+    }
+
     public function dashboard()
     {
         $countLocation = TrashLocation::count();
