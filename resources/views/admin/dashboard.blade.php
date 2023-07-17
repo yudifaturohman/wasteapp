@@ -122,5 +122,5 @@ Dashboard
         function markerClicked($event, index) {
             
         }
-    </script>
+</script>
 @endpush

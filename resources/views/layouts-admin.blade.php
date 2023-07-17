@@ -37,7 +37,7 @@
                   <!--change to offline or busy as needed-->
                 </div>
                 <div class="nav-profile-text d-flex flex-column">
-                  <span class="font-weight-bold mb-2">Administrator</span>
+                  <span class="font-weight-bold mb-2">{{ auth()->user()->name }}</span>
                   <span class="text-secondary text-small">Waste App</span>
                 </div>
                 <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
@@ -74,8 +74,7 @@
             @yield('body')
           <footer class="footer">
             <div class="container-fluid d-flex justify-content-between">
-              <span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Copyright © bootstrapdash.com 2021</span>
-              <span class="float-none float-sm-end mt-1 mt-sm-0 text-end"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin template</a> from Bootstrapdash.com</span>
+              <span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Copyright © Waste App 2023</span>
             </div>
           </footer>
         </div>

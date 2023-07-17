@@ -10,6 +10,11 @@ use App\Models\Report;
 
 class PageAdminController extends Controller
 {
+    public function index()
+    {
+        return view('main-home');    
+    }
+
     public function login()
     {
         return view('admin.login');    

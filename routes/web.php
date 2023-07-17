@@ -5,6 +5,14 @@ use App\Http\Controllers\PageAdminController;
 
 /*
 |--------------------------------------------------------------------------
+| Web Routes User
+|-------------------------------------------------------------------------
+|
+*/
+Route::get('/', [PageAdminController::class, 'index'])->name('index');
+
+/*
+|--------------------------------------------------------------------------
 | Web Routes Administrator
 |-------------------------------------------------------------------------
 |
@@ -18,8 +26,4 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/trash-location', [PageAdminController::class, 'trash_location'])->name('location');
     Route::get('/report-trash-location', [PageAdminController::class, 'report_full_trash'])->name('report');
     Route::get('/logout', [PageAdminController::class, 'postLogout'])->name('logout');
-});
-
-Route::get('/', function () {
-    return view('welcome');
 });
