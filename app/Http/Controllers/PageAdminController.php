@@ -12,7 +12,19 @@ class PageAdminController extends Controller
 {
     public function index()
     {
-        return view('main-home');    
+        $locations = TrashLocation::all();
+
+        $getJsonLocations = $locations->map( function($locations){
+            return [
+                'position' => [
+                    'lat' => (float)$locations->lat,
+                    'lng' => (float)$locations->long,
+                    'location_name' => $locations->location_name
+                ],
+            ];
+        });
+
+        return view('main-home', compact('getJsonLocations'));    
     }
 
     public function login()
