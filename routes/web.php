@@ -20,6 +20,8 @@ Route::get('/', [PageAdminController::class, 'index'])->name('index');
 
 Route::get('/login', [PageAdminController::class, 'login'])->name('login');
 Route::post('/login', [PageAdminController::class, 'postLogin']);
+Route::get('/report/{id}', [PageAdminController::class, 'reportFull']);
+Route::post('/report/{id}', [PageAdminController::class, 'reportFullSave'])->name('report_full');
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/dashboard', [PageAdminController::class, 'dashboard'])->name('dashboard');

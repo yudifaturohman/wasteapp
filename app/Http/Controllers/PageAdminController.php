@@ -17,6 +17,7 @@ class PageAdminController extends Controller
         $getJsonLocations = $locations->map( function($locations){
             return [
                 'position' => [
+                    'id' => $locations->id,
                     'lat' => (float)$locations->lat,
                     'lng' => (float)$locations->long,
                     'location_name' => $locations->location_name
@@ -25,6 +26,41 @@ class PageAdminController extends Controller
         });
 
         return view('main-home', compact('getJsonLocations'));    
+    }
+
+    public function reportFull($id)
+    {
+        $getLocationById = TrashLocation::where('id', $id)->first();
+
+        return view('report-full', compact('getLocationById'));
+
+    }
+
+    public function reportFullSave(Request $request)
+    {
+        $this->validate($request, [
+            'location_id' => 'required',
+            'email' => 'required|email',
+            'information' => 'required',
+            'photo_evidence' => 'required|mimes:jpeg,jpg,png'
+        ]);
+
+        if($request->file('photo_evidence')){
+            $file= $request->file('photo_evidence');
+            $filename= $request->get('location_id').'/'.date('YmdHi').$file->getClientOriginalName();
+            $file->move(public_path('images/'.$request->get('location_id')), $filename);
+        }
+
+        Report::create([
+            'location_id' => $request->get('location_id'),
+            'email' => $request->get('email'),
+            'information' => $request->get('information'),
+            'status' => 'open',
+            'photo_evidence' => $filename
+        ]);
+        
+        session()->flash('message', 'Lokasi telah berhasil dilaporkan dan akan segera kami proses. Terima Kasih.');
+        return redirect()->route('index');
     }
 
     public function login()

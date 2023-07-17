@@ -399,7 +399,7 @@
                 const data = initialMarkers[index];
                 const marker = generateMarker(data, index);
                 marker.addTo(map).bindPopup(
-                    `<b>Location Name: </b>${data.position.location_name} <br/> <a href='#' class='btn btn-danger btn-sm'>Report the trash can is full</a>`
+                    `<b>Location Name: </b>${data.position.location_name} <br/> <a href='report/${data.position.id}' class='btn btn-danger btn-sm'>Report the trash can is full</a>`
                 );
                 map.panTo(data.position);
                 markers.push(marker)
