@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Admin;
 use Livewire\Component;
 use App\Models\TrashLocation as ModelTrashLocation;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Log;
 
 class TrashLocation extends Component
 {
@@ -35,15 +36,22 @@ class TrashLocation extends Component
             'lat' => 'required',
             'long' => 'required'
         ]);
-        
-        ModelTrashLocation::create([
-            'location_name' => $this->location_name,
-            'lat' => $this->lat,
-            'long' => $this->long,
-        ]);
 
-        session()->flash('message', 'Success! Data has been created');
-        $this->resetInput();
+        try {
+            ModelTrashLocation::create([
+                'location_name' => $this->location_name,
+                'lat' => $this->lat,
+                'long' => $this->long,
+            ]);
+
+            Log::info('Success! Data has been created for location {location_name} : ', ['location_name' => $this->location_name]);
+
+            session()->flash('message', 'Success! Data has been created');
+            $this->resetInput();
+        } catch (\Exception $e) {
+            Log::error('This message error : '.$e->getMessage());
+            session()->flash('message_danger', $e->getMessage());
+        }
     }
 
     public function edit($id)
@@ -63,14 +71,21 @@ class TrashLocation extends Component
             'long' => 'required'
         ]);
 
-        $updateById = ModelTrashLocation::find($this->selected_id);
-        $updateById->location_name = $this->location_name;
-        $updateById->lat = $this->lat;
-        $updateById->long = $this->long;
-        $updateById->update();
+        try {
+            $updateById = ModelTrashLocation::find($this->selected_id);
+            $updateById->location_name = $this->location_name;
+            $updateById->lat = $this->lat;
+            $updateById->long = $this->long;
+            $updateById->update();
 
-        session()->flash('message', 'Success! Data has been updated');
-        $this->resetInput();
+            Log::info('Success! Data has been updated {location_name} : ', ['location_name' => $updateById->location_name]);
+
+            session()->flash('message', 'Success! Data has been updated');
+            $this->resetInput();
+        } catch (\Exception $e) {
+            Log::error('This message error : '.$e->getMessage());
+            session()->flash('message_danger', $e->getMessage());
+        }
     }
 
     public function delete($id)

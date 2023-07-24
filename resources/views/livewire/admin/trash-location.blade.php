@@ -4,6 +4,10 @@
         <div class="alert alert-primary" role="alert">
             {{ session('message') }}
         </div>
+        @elseif(session()->has('message_danger'))
+        <div class="alert alert-danger" role="alert">
+            {{ session('message_danger') }}
+        </div>
         @endif
         <div class="page-header">
             <h3 class="page-title">
